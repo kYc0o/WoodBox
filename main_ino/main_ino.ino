@@ -1,14 +1,50 @@
 #include <ChainableLED.h>
-
 #include "DHT.h"
 #include"AirQuality.h"
 #include"Arduino.h"
 
-// DHT
 #define DHTPIN 8      // Digital pin for DHT sensor
 #define DHTTYPE DHT11  // DHT 11 sensor type
 #define LUX_PIN A3    // Analog pin for luminosity sensor
 #define AIR_PIN A0    // Analog pin for air quality sensor
+
+// Temperature defines
+#define T_VERY_LOW 65
+#define T_LOW 66
+#define T_NORMAL 67
+#define T_HIGH 68
+
+// Humidity defines
+#define H_VERY_LOW 69
+#define H_LOW 70
+#define H_NORMAL 71
+#define H_HIGH 72
+
+// Polution defines
+#define VERY_POLUTED 73
+#define POLUTED 74
+#define LOW_PLUTION 75
+#define NO_POLUTION 76
+
+// Interior air quality defines
+#define IAQ_VERY_BAD 77
+#define IAQ_BAD 78
+#define IAQ_GOOD 79
+#define IAQ_VERY_GOOD 80
+
+// Lumonisity
+#define L_VERY_LOW 81
+#define L_LOW 82
+#define L_NORMAL 83
+#define L_HIGH 84
+
+// Ventilation
+#define VENTILATION_ON 85
+#define VENTILATION_OFF 86
+
+// Heater
+#define HEATER_ON 87
+#define HEATER_OFF 88
 
 // Initialize DHT sensor for normal 16mhz Arduino
 DHT dht(DHTPIN, DHTTYPE);
@@ -43,29 +79,99 @@ void setup()
 void loop()
 {
   // attente active
-  
-    delay(3000);
-
-  
+  delay(3000);
   temperature = dht.readTemperature();
   humidite = dht.readHumidity();
   luminosite = analogRead(LUX_PIN);
-  qualiteAir = airqualitysensor.slope();      
+  qualiteAir = airqualitysensor.slope();
+  
+  if (Serial.available() > 0) {
+    // read the incoming byte:
+    incomingByte = Serial.read();
+    
+    switch (incomingByte)
+    {
+      // Temperature less than 16 degrees celsius
+      case T_VERY_LOW:
+      break;
+      
+      case T_LOW;
+      break;
+      
+      case T_NORMAL;
+      break;
+      
+      case T_HIGH:
+      break;
+      
+      case H_VERY_LOW:
+      break;
+      
+      case H_LOW:
+      break;
+      
+      case H_NORMAL:
+      break;
+      
+      case H_HIGH:
+      break;
+      
+      case VERY_POLUTED:
+      break;
+      
+      case POLUTED:
+      break;
+      
+      case LOW_PLUTION:
+      break;
+      
+      case NO_POLUTION:
+      break;
+      
+      case IAQ_VERY_BAD:
+      break;
+      
+      case IAQ_BAD:
+      break;
+      
+      case IAQ_GOOD:
+      break;
+      
+      case IAQ_VERY_GOOD:
+      break;
+      
+      case L_VERY_LOW:
+      break;
+      
+      case L_LOW:
+      break;
+      
+      case L_NORMAL:
+      break;
+      
+      case L_HIGH:
+      break;
+      
+      case VENTILATION_ON:
+      break;
+      
+      case VENTILATION_OFF:
+      break;
+      
+      case HEATER_ON:
+      break;
+      
+      case HEATER_OFF:
+      break;
 
-   if (Serial.available() > 0) {
-                // read the incoming byte:
-                incomingByte = Serial.read();
-
-
-
-                // say what you got:
-                Serial.print("I received: ");
-                Serial.println(incomingByte, DEC);
-        }
-   printInfo(temperature, humidite, luminosite, qualiteAir);
-
-   count ++;
-
+      default:
+      break;
+      
+    }
+  }
+  
+  printInfo(temperature, humidite, luminosite, qualiteAir);
+  count ++;
 }
 
 
