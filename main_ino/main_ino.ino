@@ -3,6 +3,10 @@
 #include"AirQuality.h"
 #include"Arduino.h"
 
+// Chainable LED
+#define NUM_LEDS  5
+
+// Sensors
 #define DHTPIN 8      // Digital pin for DHT sensor
 #define DHTTYPE DHT11  // DHT 11 sensor type
 #define LUX_PIN A3    // Analog pin for luminosity sensor
@@ -52,6 +56,16 @@ DHT dht(DHTPIN, DHTTYPE);
 // Air quality sensor object
 AirQuality airqualitysensor;
 
+// Chainable LED config
+ChainableLED leds(4, 5, NUM_LEDS);
+
+// Global variables for colors
+int colorMaison[4][3] = {{0,0,255},{245,238,10},{255,146,3},{255,0,0}};
+int colorUsine[4][3] = {{131,165,30},{246,255,3},{51,216,26},{0,0,255}};
+int colorNuage[4][3] = {{255,0,0},{246,255,3},{130,130,255},{51,216,26}};
+int colorMan[4][3] = {{131,165,30},{246,255,3},{51,216,26},{0,0,255}};
+int colorSoleil[4][3] = {{110,110,7},{154,157,63},{197,201,103},{248,252,125}};
+
 // Global variables for sensors
 int qualiteAir =-1;
 float temperature = 0;
@@ -93,6 +107,7 @@ void loop()
     {
       // Temperature less than 16 degrees celsius
       case T_VERY_LOW:
+      leds.setColorRGB(0, colorMaison[0][0], colorMaison[0][1], colorMaison[0][2]);
       break;
       
       case T_LOW;
