@@ -42,6 +42,7 @@ void setup()
 
 void loop()
 {
+  // attente active
   
     delay(3000);
 
