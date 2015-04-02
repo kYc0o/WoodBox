@@ -32,7 +32,23 @@ char  *time_file()
 
 void	create_json(char *str)
 {
-  }
+  printf("%s\n", str);
+  json_data = fopen("data.json", "a");
+  if (json_data)
+    {
+      fprintf(json_data, "%s", str);
+      i = 0;
+      if (str[i] == '[')
+	{
+	  fprintf(json_data, "{", str);
+	  i++;
+	}
+      if (fclose(json_data))
+	printf("Error json_data close\n");
+    }
+  else
+    printf("json_data fail\n");
+}
 
 void	main()
 {
@@ -52,22 +68,7 @@ void	main()
 	{
 	  while ((str = get_next_line(0)) != NULL)
 	    {
-	      printf("%s\n", str);
-	      json_data = fopen("data.json", "a");
-	      if (json_data)
-		{
-		  fprintf(json_data, "%s", str);
-		  i = 0;
-		  if (str[i] == '[')
-		    {
-		     fprintf(json_data, "{", str);
-		     i++;
-		    }
-		  if (fclose(json_data))
-		    printf("Error json_data close\n");
-		}
-	      else
-		printf("json_data fail\n");
+	      create_json(str);
 	    }
 	  flag = 1;
 	}
