@@ -18,6 +18,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
+#include "my.h"
 
 char buffer[1024];
 FILE	*json_data;
@@ -32,6 +33,8 @@ char  *time_file()
 
 void	create_json(char *str)
 {
+  int	i;
+
   printf("%s\n", str);
   json_data = fopen("data.json", "a");
   if (json_data)
