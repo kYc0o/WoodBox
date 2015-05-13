@@ -16,7 +16,7 @@ CFLAGS	+= -I./include
 
 NAME	= receptData
 
-SRCS	= recept_data.c
+SRCS	= recep_data.c
 
 OBJS	= $(SRCS:.c=.o)
 
